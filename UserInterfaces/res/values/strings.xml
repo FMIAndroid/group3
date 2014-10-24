@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">UserInterfaces</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_second">SecondActivity</string>
+
+    <!-- Main Activity Strings -->
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="emai">Email</string>
+    <string name="password">Password</string>
+    <string name="conform_password">Confirm Password</string>
+
+    <!-- Second Activity Strings -->
+    <string name="user_name">Pesho Peshov</string>
+    <string name="user_email">pesho@gmail.com</string>
+
+    
+    </resources>

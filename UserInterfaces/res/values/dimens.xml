@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="app_padding">15dp</dimen>
+    <dimen name="app_margin">10dp</dimen>
+    <dimen name="image_width">100dp</dimen>
+    <dimen name="text_size_normal">20sp</dimen>
+    <dimen name="text_size_large">28sp</dimen>
+	<dimen name="sample">200dp</dimen>
+   
+</resources>
