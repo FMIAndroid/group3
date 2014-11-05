@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Intents</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="user_description">Description</string>
+    <string name="change_phone">Phone</string>
+    <string name="change_description">Description</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="title_activity_edit_description">EditDescriptionActivity</string>
+
+</resources>
