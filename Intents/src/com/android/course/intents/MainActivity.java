@@ -5,7 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,9 +17,13 @@ import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Contacts;
+import android.provider.MediaStore;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,6 +37,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	public final static int DESCRIPTION = 2;
 	private final static int PICK_CONTACT = 3;
 	private final static int SELECT_PICTURE = 4;
+	private static final int REQUEST_IMAGE_CAPTURE = 5;
+	private static final int SEND_EMAIL = 6;
 
 	private String userEmail;
 	private String userPassword;
@@ -37,6 +46,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	private TextView phone;
 	private TextView description;
 	private ImageView userImage;
+
+	private IntentFilter filter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +57,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		// Get views instances
 		Button change_phone = (Button) findViewById(R.id.change_phone_number);
 		Button change_description = (Button) findViewById(R.id.change_description);
+		Button send_email = (Button) findViewById(R.id.send_email);
+		Button start_animation = (Button) findViewById(R.id.open_animation);
+		Button broadcast = (Button) findViewById(R.id.broadcast);
 
 		userImage = (ImageView) findViewById(R.id.user_image);
 		phone = (TextView) findViewById(R.id.user_phone);
@@ -55,16 +69,27 @@ public class MainActivity extends Activity implements OnClickListener {
 		change_description.setOnClickListener(this);
 		change_phone.setOnClickListener(this);
 		userImage.setOnClickListener(this);
+		send_email.setOnClickListener(this);
+		start_animation.setOnClickListener(this);
+		broadcast.setOnClickListener(this);
 
-		Boolean isLogged = checkCredentials();
-		if (!isLogged) {
-			startLogInForm();
-		}
+		// Boolean isLogged = checkCredentials();
+		// if (!isLogged) {
+		// startLogInForm();
+		// }
+
+		// the intent filter will be action =
+		// "com.android.course.RECIEVE"
+		
+
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
+		filter = new IntentFilter("com.android.course.RECIEVE");
+		// register the receiver:
+		LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, filter);
 
 	}
 
@@ -110,6 +135,20 @@ public class MainActivity extends Activity implements OnClickListener {
 				getImageFromUri(selectedImageUri);
 
 				break;
+			case REQUEST_IMAGE_CAPTURE:
+				Bundle extras = data.getExtras();
+				Bitmap imageBitmap = (Bitmap) extras.get("data");
+				userImage.setImageBitmap(imageBitmap);
+
+				// Set animation for the user profile image
+				Animation animBounce = AnimationUtils.loadAnimation(
+						MainActivity.this, R.anim.bounce_animation);
+
+				userImage.startAnimation(animBounce);
+				break;
+			case SEND_EMAIL:
+
+				break;
 			default:
 				break;
 			}
@@ -134,12 +173,28 @@ public class MainActivity extends Activity implements OnClickListener {
 			startActivityForResult(intent, PICK_CONTACT);
 			break;
 		case R.id.user_image:
-			Intent intentImage = new Intent();
-			intentImage.setType("image/*");
-			intentImage.setAction(Intent.ACTION_GET_CONTENT);
-			startActivityForResult(
-					Intent.createChooser(intentImage, "Select Picture"),
-					SELECT_PICTURE);
+			// Intent intentImage = new Intent();
+			// intentImage.setType("image/*");
+			// intentImage.setAction(Intent.ACTION_GET_CONTENT);
+			// startActivityForResult(
+			// Intent.createChooser(intentImage, "Select Picture"),
+			// SELECT_PICTURE);
+
+			dispatchTakePictureIntent();
+			break;
+		case R.id.send_email:
+			dispachSendEmailIntent();
+			break;
+		case R.id.open_animation:
+			Intent animationIntent = new Intent();
+			animationIntent
+					.setAction("com.android.course.intents.ANIMATION_ACTION");
+			startActivity(animationIntent);
+			break;
+		case R.id.broadcast:
+			Intent broadcastIntent = new Intent(this,
+					BroadCastingActivity.class);
+			startActivity(broadcastIntent);
 			break;
 		default:
 			break;
@@ -230,4 +285,51 @@ public class MainActivity extends Activity implements OnClickListener {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * Launch intent for the hardware camera
+	 */
+	private void dispatchTakePictureIntent() {
+		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+			startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+		}
+	}
+
+	/**
+	 * Start Intent to open Email app and send email
+	 */
+	private void dispachSendEmailIntent() {
+		// Intent intent = new Intent(Intent.ACTION_SEND);
+		// intent.setType("text/html");
+		// intent.putExtra(Intent.EXTRA_EMAIL, "emailaddress@emailaddress.com");
+		// intent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
+		// intent.putExtra(Intent.EXTRA_TEXT, "I'm email body.");
+		//
+		// startActivity(Intent.createChooser(intent, "Send Email"));
+
+		Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+				"mailto", "abc@gmail.com", null));
+		emailIntent.putExtra(Intent.EXTRA_SUBJECT, "EXTRA_SUBJECT");
+		emailIntent.putExtra(Intent.EXTRA_TEXT, "I'm email body.");
+		startActivityForResult(
+				Intent.createChooser(emailIntent, "Send email..."), SEND_EMAIL);
+	}
+
+	@Override
+	protected void onDestroy() {
+		// Unregister since the activity is about to be closed.
+		LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+		super.onDestroy();
+	}
+
+	// My BroadcastReciever
+	private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// Get extra data included in the Intent
+			String message = intent.getStringExtra("message");
+			Log.d("receiver", "Got message: " + message);
+		}
+	};
 }

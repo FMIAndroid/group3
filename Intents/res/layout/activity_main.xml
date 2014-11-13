@@ -12,9 +12,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/app_margin"
         android:adjustViewBounds="true"
+        android:clickable="true"
         android:contentDescription="@drawable/add_user_image"
         android:scaleType="fitXY"
-        android:clickable="true"
         android:src="@drawable/add_user_image" />
 
     <TextView
@@ -38,26 +38,55 @@
         android:text="0887 383836" />
 
     <LinearLayout
+        android:id="@+id/buttons_containers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/user_phone"
+        android:layout_margin="@dimen/app_margin"
         android:orientation="horizontal" >
 
         <Button
             android:id="@+id/change_phone_number"
             style="@style/ButtonStyle"
-            android:text="@string/change_phone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_marginRight="@dimen/app_margin"
+            android:layout_weight="1"
+            android:text="@string/change_phone" />
 
         <Button
             android:id="@+id/change_description"
             style="@style/ButtonStyle"
             android:layout_width="0dp"
-            android:text="@string/change_description"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="@string/change_description" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/send_email"
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttons_containers"
+        android:layout_marginBottom="@dimen/app_margin"
+        android:text="@string/send_email" />
+
+    <Button
+        android:id="@+id/open_animation"
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/send_email"
+        android:layout_marginBottom="@dimen/app_margin"
+        android:text="@string/start_animation" />
+
+    <Button
+        android:id="@+id/broadcast"
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/open_animation"
+        android:text="@string/broadcast" />
 
 </RelativeLayout>

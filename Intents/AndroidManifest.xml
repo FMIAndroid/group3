@@ -9,7 +9,12 @@
         android:targetSdkVersion="21" />
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -33,6 +38,21 @@
             android:name=".EditDescriptionActivity"
             android:label="@string/title_activity_edit_description" >
         </activity>
+        <activity
+            android:name=".AnimationActivity"
+            android:label="@string/title_activity_animation" >
+            <intent-filter>
+                <action android:name="com.android.course.intents.ANIMATION_ACTION" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".BroadCastingActivity"
+            android:label="@string/title_activity_broad_casting" >
+        </activity>
+
+        
     </application>
 
 </manifest>
