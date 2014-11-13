@@ -1,0 +1,4 @@
+Hi!
+I am an example how we should read 
+from res/raw directory of your project 
+:)
