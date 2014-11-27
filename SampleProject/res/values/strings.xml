@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SimpleProject</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confim Password</string>
+    <string name="register">Register</string>
+    <string name="view_list">Full Users List</string>
+    <string name="internal_storage">Internal Storage</string>
+    <string name="external_storage">External Storage</string>
+    <string name="raw_resources">Raw Resources</string>
+    <string name="save">Save</string>
+    <string name="load">Load</string>
+    <string name="file_content">File Content</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_details">DetailsActivity</string>
+
+</resources>
