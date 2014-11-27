@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:padding="@dimen/app_padding"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <ImageView
+        android:id="@+id/user_image"
+        android:layout_width="@dimen/image_dimens"
+        android:layout_height="@dimen/image_dimens"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/app_margin"
+        android:clickable="true"
+        android:src="@drawable/add_user_image" />
+
+    <TextView
+        android:id="@+id/label_name"
+        android:layout_width="@dimen/login_labels_width"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_image"
+        android:layout_marginRight="@dimen/app_margin"
+        android:text="@string/name" />
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_image"
+        android:layout_marginBottom="@dimen/app_margin"
+        android:layout_toRightOf="@id/label_name"
+        android:hint="@string/name" />
+
+    <TextView
+        android:id="@+id/label_email"
+        android:layout_width="@dimen/login_labels_width"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_name"
+        android:layout_marginRight="@dimen/app_margin"
+        android:text="@string/email" />
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_name"
+        android:layout_marginBottom="@dimen/app_margin"
+        android:layout_toRightOf="@id/label_email"
+        android:hint="@string/email" />
+
+  
+</RelativeLayout>

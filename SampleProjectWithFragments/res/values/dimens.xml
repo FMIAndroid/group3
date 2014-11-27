@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <dimen name="app_padding">10dp</dimen>
+    <dimen name="app_margin">10dp</dimen>
+    <dimen name="image_dimens">130dp</dimen>
+    <dimen name="thumb_dimes">75dp</dimen>
+     <dimen name="login_labels_width">80dp</dimen>
+    <dimen name="text_size_normal">16sp</dimen>
+     <dimen name="text_size_large">22sp</dimen>
+</resources>
